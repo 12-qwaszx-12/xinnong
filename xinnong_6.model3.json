@@ -2,13 +2,16 @@
   "Version": 3,
   "Name": "xinnong_6",
   "FileReferences": {
-    "Moc": "xinnong_6.moc3",
+    "Moc": "{
+  "moc": "https://cdn.jsdelivr.net/gh/12-qwaszx-12/xinnong@main/xinnong_6.moc3"
+}
+",
     "Textures": [
-      "textures/texture_00.png",
-      "textures/texture_01.png"
+      "https://cdn.jsdelivr.net/gh/12-qwaszx-12/xinnong@main/textures/texture_00.png",
+      "https://cdn.jsdelivr.net/gh/12-qwaszx-12/xinnong@main/textures/texture_01.png"
     ],
-    "DisplayInfo": "xinnong_6.cdi3.json",
-    "Physics": "xinnong_6.physics3.json",
+    "DisplayInfo": "https://cdn.jsdelivr.net/gh/12-qwaszx-12/xinnong@main/xinnong_6.cdi3.json",
+    "Physics": "https://cdn.jsdelivr.net/gh/12-qwaszx-12/xinnong@main/xinnong_6.physics3.json",
     "Motions": {
       "complete": [
         {
