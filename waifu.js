@@ -21,6 +21,8 @@
       const model = await PIXI.live2d.Live2DModel.from(config.waifuPath);
       container.addChild(model);
 
+      model.scale.set(config.scale || 0.3);
+
       console.log("✅ Live2D 加载成功");
 
     } catch (e) {
