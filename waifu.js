@@ -12,16 +12,15 @@
     try {
       const app = new PIXI.Application({
         view: canvas,
-        autoStart: true,
         resizeTo: window,
         transparent: true
       });
 
       const model = await PIXI.live2d.Live2DModel.from(config.waifuPath);
 
-      model.scale.set(0.3);
+      model.scale.set(0.25);
       model.x = window.innerWidth - 200;
-      model.y = window.innerHeight - 300;
+      model.y = window.innerHeight - 50;
 
       app.stage.addChild(model);
 
