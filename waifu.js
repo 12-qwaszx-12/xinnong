@@ -11,7 +11,6 @@
       // 初始化 PIXI
       const app = new PIXI.Application({
         view: canvas,
-        resizeTo: window,
         transparent: true
       });
 
