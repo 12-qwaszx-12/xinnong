@@ -7,6 +7,7 @@
     canvas.style.right = "0";
     canvas.style.bottom = "0";
     canvas.style.zIndex = "9999";
+    canvas.style.cursor = "grab"; // 鼠标显示可拖
     document.body.appendChild(canvas);
 
     try {
@@ -19,32 +20,67 @@
       const model = await PIXI.live2d.Live2DModel.from(config.waifuPath);
       app.stage.addChild(model);
 
-      // ---------- 自动缩放函数 ----------
+      // ---------- 默认右下角位置 ----------
+      model.x = window.innerWidth - 200;
+      model.y = window.innerHeight - 50;
+
+      // ---------- 自动缩放 ----------
       function resizeModel() {
         const screenWidth = window.innerWidth;
         const screenHeight = window.innerHeight;
 
-        // 模型原始宽高（PIXI 会先加载完模型才能拿到）
         const modelWidth = model.width || 1000;
         const modelHeight = model.height || 1000;
 
-        // 计算缩放比例，保证完整显示
+        // 自适应缩放比例
         const scale = Math.min(screenWidth / modelWidth, screenHeight / modelHeight) * 0.25;
-
         model.scale.set(scale);
 
-        // 固定右下角，留一点边距
-        model.x = screenWidth - model.width - 20;
-        model.y = screenHeight - model.height - 20;
+        // 默认右下角位置（如果没有拖动）
+        if (!dragging) {
+          model.x = screenWidth - model.width - 20;
+          model.y = screenHeight - model.height - 20;
+        }
       }
 
-      // 初始执行一次
+      // 初始缩放
+      let dragging = false; // 标记是否拖动中
       resizeModel();
 
-      // 窗口大小变化时自动调整
+      // 窗口变化时自动缩放
       window.addEventListener("resize", resizeModel);
 
-      console.log("✅ Live2D 加载成功");
+      // ---------- 鼠标拖拽 ----------
+      let offsetX = 0;
+      let offsetY = 0;
+
+      model.interactive = true;
+      model.on('pointerdown', (e) => {
+        dragging = true;
+        model.cursor = 'grabbing';
+        const pos = e.data.global;
+        offsetX = pos.x - model.x;
+        offsetY = pos.y - model.y;
+      });
+
+      model.on('pointermove', (e) => {
+        if (dragging) {
+          const pos = e.data.global;
+          model.x = pos.x - offsetX;
+          model.y = pos.y - offsetY;
+        }
+      });
+
+      model.on('pointerup', () => {
+        dragging = false;
+        model.cursor = 'grab';
+      });
+      model.on('pointerupoutside', () => {
+        dragging = false;
+        model.cursor = 'grab';
+      });
+
+      console.log("✅ Live2D 加载成功（可拖拽 + 自适应）");
     } catch (e) {
       console.error("❌ Live2D 加载失败:", e);
     }
