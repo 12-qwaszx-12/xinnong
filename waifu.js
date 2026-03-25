@@ -56,22 +56,6 @@
       container.on('pointerup', () => { dragging = false; container.cursor = 'grab'; });
       container.on('pointerupoutside', () => { dragging = false; container.cursor = 'grab'; });
 
-      // ---------- 缩放 + 初始居中 ----------
-      const scaleFactor = config.scale || 0.25;
-      function resizeContainer() {
-        const sw = window.innerWidth;
-        const sh = window.innerHeight;
-        const scale = Math.min(sw / model.width, sh / model.height) * scaleFactor;
-        container.scale.set(scale);
-
-        if (!dragging) {
-          container.x = sw / 2;
-          container.y = sh / 2;
-        }
-      }
-
-      resizeContainer();
-      window.addEventListener("resize", resizeContainer);
 
       console.log("✅ Live2D 可拖拽加载成功");
 
