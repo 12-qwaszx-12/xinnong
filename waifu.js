@@ -17,7 +17,7 @@
         transparent: true
       });
 
-      // 创建容器承载模型
+      // 创建容器承载模型，方便拖拽和缩放
       const container = new PIXI.Container();
       app.stage.addChild(container);
 
@@ -59,21 +59,24 @@
         const modelWidth = model.width || 1000;
         const modelHeight = model.height || 1000;
 
-        // scale 以窗口大小和模型原始尺寸比例自适应
+        // 计算自适应缩放
         const scale = Math.min(screenWidth / modelWidth, screenHeight / modelHeight) * 0.25;
         container.scale.set(scale);
 
         // 如果没拖动过，贴右下角
         if (!dragging) {
-          container.x = screenWidth - model.width * scale - 20;
-          container.y = screenHeight - model.height * scale - 20;
+          container.x = screenWidth - modelWidth * scale - 20;
+          container.y = screenHeight - modelHeight * scale - 20;
         }
       }
 
+      // 初始化位置和缩放
       resizeContainer();
+
+      // 窗口变化时自动调整
       window.addEventListener("resize", resizeContainer);
 
-      console.log("✅ Live2D 加载成功（可拖拽 + 自适应 + 贴边右下）");
+      console.log("✅ Live2D 加载成功（可拖拽 + 自适应 + 右下角）");
 
     } catch (e) {
       console.error("❌ Live2D 加载失败:", e);
