@@ -260,6 +260,11 @@
           "File": "https://cdn.jsdelivr.net/gh/12-qwaszx-12/xinnong@main/motions/wedding.motion3.json"
         }
       ]
+      "donghua": [
+        {
+          "File": "https://cdn.jsdelivr.net/gh/12-qwaszx-12/xinnong@main/motions/xinnong_6.motion3.json"
+        }
+      ]
     },
     "Expressions": []
   },
